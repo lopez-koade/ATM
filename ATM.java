@@ -114,6 +114,7 @@ public class ATM {
                     break;
                 
                 default:
+                	System.out.println("");
                 	System.out.println("Invalid option, please try again");
                 	System.out.println("");
                 	break;
