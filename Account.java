@@ -10,6 +10,7 @@ public class Account {
     private double dollarsBalance = 0.00;
     boolean exitMenu;
 
+
     
     public Account(String userName, int accountNumber, int pin, double poundsBalance, 
             double eurosBalance, double dollarsBalance){
@@ -27,16 +28,16 @@ public class Account {
    public void menu(Scanner scanner){
        exitMenu = false;
        while(!exitMenu){
-            System.out.println("===========");
-            System.out.println("MENU");
-            System.out.println("");
-            System.out.println("1. Account Balance");
-            System.out.println("2. Make a deposit");
-            System.out.println("3. Make a withdrawal");
-            System.out.println("4. Exchange currency");
-            System.out.println("5. Last movements statement");
-            System.out.println("6. Change pin");
-            System.out.println("9. Exit");  
+    	   System.out.println("===========");
+           System.out.println("MENU");
+           System.out.println("");
+           System.out.println("1. Account Balance.");
+           System.out.println("2. Make a deposit.");
+           System.out.println("3. Make a withdrawal.");
+           System.out.println("4. Exchange currency.");
+           System.out.println("5. Last movements statement.");
+           System.out.println("6. Change pin.");
+           System.out.println("9. Exit.");  
    
             
             int menuChoice = ATM.getIntInput(scanner);
@@ -64,7 +65,7 @@ public class Account {
                   break; 
               default:
                   System.out.println("");
-            	  System.out.println("Invalid option, please try again");
+            	  System.out.println("Invalid option, please try again.");
             	  menu(scanner);
               }
         }
@@ -74,13 +75,13 @@ public class Account {
 	   System.out.println("===========");
        System.out.println("MENU");
        System.out.println("");
-       System.out.println("1. Account Balance");
-       System.out.println("2. Make a deposit");
-       System.out.println("3. Make a withdrawal");
-       System.out.println("4. Exchange currency");
-       System.out.println("5. Last movements statement");
-       System.out.println("6. Change pin");
-       System.out.println("9. Exit");
+       System.out.println("1. Account Balance.");
+       System.out.println("2. Make a deposit.");
+       System.out.println("3. Make a withdrawal.");
+       System.out.println("4. Exchange currency.");
+       System.out.println("5. Last movements statement.");
+       System.out.println("6. Change pin.");
+       System.out.println("9. Exit.");
    }
    
   
@@ -94,85 +95,120 @@ public class Account {
 	   
 	   System.out.println("==========");
    	   System.out.println("");
-       System.out.println("1. Press to check Pound Sterling account balance");
-       System.out.println("2. Press to check Euro account balance");
-       System.out.println("3. Press to check Dollar account balance");
-   	   System.out.println("4. Press to check all your accounts balance");
-       System.out.println("8. Press to go back to the menu");
-       System.out.println("9. Exit");
+       System.out.println("1. Press to check Pound Sterling account balance.");
+       System.out.println("2. Press to check Euro account balance.");
+       System.out.println("3. Press to check Dollar account balance.");
+   	   System.out.println("4. Press to check all your accounts balance.");
+   	   System.out.println("");
+       System.out.println("8. Press to go back to the menu.");
+       System.out.println("9. Exit the program.");
        
-       int checkBalanceChoice = scanner.nextInt();
-       switch (checkBalanceChoice){
-           case 1:
-        	 System.out.println("==========");
-         	 System.out.println("");
-             System.out.println("Your Pound Sterling account balance is £" + this.poundsBalance);
-         	 System.out.println("");
-             System.out.println("8. Press to check another account");
-             System.out.println("9. Press to go back to the menu");
-             int case1CheckBalanceChoice = ATM.getIntInput(scanner);
-             if(case1CheckBalanceChoice == 8) {
-            	 menu(scanner);
-             } else if (case1CheckBalanceChoice == 9) {
-            	 checkBalance(scanner);
-             }
-             break;
+       int checkBalanceChoice = ATM.getIntInput(scanner);
+    	  switch (checkBalanceChoice){
+       		case 1:
+       			boolean exit = false;
+       			while(!exit) {
+		        	 System.out.println("==========");
+		         	 System.out.println("");
+		             System.out.println("Your Pound Sterling account balance is "+ this.poundsBalance + " pounds.");
+		         	 System.out.println("");
+		             System.out.println("7. Press to check another account.");
+		             System.out.println("8. Press to go back to the menu.");
+		             System.out.println("9. Exit the program.");
+		             int case1CheckBalanceChoice = ATM.getIntInput(scanner);
+		             if(case1CheckBalanceChoice == 7){
+		             	checkBalance(scanner);
+		             } else if (case1CheckBalanceChoice == 8){
+		            	 menu(scanner);
+		            	 exit = true;
+		             } else if(case1CheckBalanceChoice == 9) {
+		            	 exitTheProgram();
+		             } else {
+		            	 System.out.println("");
+		            	 System.out.println("Invalid option, please try again.");
+		             }
+		         }
+       			break;
            case 2:
-        	   System.out.println("==========");
-           	 System.out.println("");
-             System.out.println("Your Euro account balance is " + this.eurosBalance + "€");
-         	 System.out.println("");
-             System.out.println("8. Press to check another account");
-             System.out.println("9. Press to go back to the menu");
-             int case2CheckBalanceChoice = ATM.getIntInput(scanner);
-             if(case2CheckBalanceChoice == 8) {
-            	 menu(scanner);
-             } else if (case2CheckBalanceChoice == 9) {
-            	 checkBalance(scanner);
-             }
-             break;
+        	   boolean exit2 = false;
+      			while(!exit2) {
+		        	 System.out.println("==========");
+		         	 System.out.println("");
+		             System.out.println("Your euro account balance is " + this.eurosBalance + " euros.");
+		         	 System.out.println("");
+		             System.out.println("7. Press to check another account.");
+		             System.out.println("8. Press to go back to the menu.");
+		             System.out.println("9. Exit the program.");
+		             int case2CheckBalanceChoice = ATM.getIntInput(scanner);
+		             if(case2CheckBalanceChoice == 7){
+		             	checkBalance(scanner);
+		             } else if (case2CheckBalanceChoice == 8){
+		            	 menu(scanner);
+		            	 exit2 = true;
+		             } else if(case2CheckBalanceChoice == 9) {
+		            	 exitTheProgram();
+		             } else {
+		            	 System.out.println("");
+		            	 System.out.println("Invalid option, please try again.");
+		             }
+		         }
+      			break;
            case 3:
-        	   System.out.println("==========");
-           	 System.out.println("");
-             System.out.println("Your Dollar account balance is $" + this.dollarsBalance);
-         	 System.out.println("");
-             System.out.println("8. Press to check another account");
-             System.out.println("9. Press to go back to the menu");
-             int case3CheckBalanceChoice = ATM.getIntInput(scanner);
-             if(case3CheckBalanceChoice == 8) {
-            	 menu(scanner);
-             } else if (case3CheckBalanceChoice == 9) {
-            	 checkBalance(scanner);
-             }
-             break;
+        	   boolean exit3 = false;
+     			while(!exit3) {
+		        	 System.out.println("==========");
+		         	 System.out.println("");
+		             System.out.println("Your dollar account balance is " + this.dollarsBalance + " dollars.");
+		         	 System.out.println("");
+		             System.out.println("7. Press to check another account.");
+		             System.out.println("8. Press to go back to the menu.");
+		             System.out.println("9. Exit the program.");
+		             int case3CheckBalanceChoice = ATM.getIntInput(scanner);
+		             if(case3CheckBalanceChoice == 7){
+		             	checkBalance(scanner);
+		             } else if (case3CheckBalanceChoice == 8){
+		            	 menu(scanner);
+		            	 exit3 = true;
+		             } else if(case3CheckBalanceChoice == 9) {
+		            	 exitTheProgram();
+		             } else {
+		            	 System.out.println("");
+		            	 System.out.println("Invalid option, please try again.");
+		             }
+		         }
+     			break;
            case 4:
-        	  System.out.println("==========");
-           	 System.out.println("");
-             System.out.println("Your Pound Sterling account balance is £" + this.poundsBalance);
-             System.out.println("Your Euro account balance is " + this.eurosBalance + "€");
-             System.out.println("Your Dollar account balance is $" + this.dollarsBalance);
-         	 System.out.println("");
-             System.out.println("8. Press to go back to the menu");
-             System.out.println("9. Exit");
-             int case4CheckBalanceChoice = ATM.getIntInput(scanner);
-             if(case4CheckBalanceChoice == 9) {
-            	 checkBalance(scanner);
-             }
-             break;
+        	   boolean exit4 = false;
+    			while(!exit4) {
+		        	   System.out.println("==========");
+		           	 System.out.println("");
+		           	 System.out.println("Your Pound Sterling account balance is "+ this.poundsBalance + " pounds.");
+		             System.out.println("Your euro account balance is " + this.eurosBalance + " euros.");
+		             System.out.println("Your dollar account balance is " + this.dollarsBalance + " dollars.");
+		         	 System.out.println("");
+		             System.out.println("8. Press to go back to the menu");
+		             System.out.println("9. Exit the program.");
+		             int case4CheckBalanceChoice = ATM.getIntInput(scanner);
+		             if(case4CheckBalanceChoice == 8){
+		            	 menu(scanner);
+		            	 exit4 = true;
+		             } else if(case4CheckBalanceChoice == 9) {
+		            	 exitTheProgram();
+		             } else {
+		            	 System.out.println("");
+		            	 System.out.println("Invalid option, please try again.");
+		             }
+		         }
+     			break;
            case 8:
-        	   return;
+        	   menu(scanner);
                
            case 9:
-           	 System.out.println("");
-           	 System.out.println("==========");
-             System.out.println("We hope to see you back soon.");
-             System.out.println("Good bye!.");
-             System.exit(0);
+           	 exitTheProgram();
            default:
         	System.out.println("Invalid option, please try again");
            	System.out.println("");
            	checkBalance(scanner);
-
        }
        
    }
@@ -182,8 +218,54 @@ public class Account {
    
    
    public void makeDeposit(Scanner scanner){
-	   
+	   double amountToDeposit = 0;
+	   int confirmAmountToDeposit;
+	   System.out.println("Please select account:");
+	   System.out.println("1. Pound Sterling account.");
+       System.out.println("2. Euro account.");
+       System.out.println("3. Dollar account.");
        
+	   
+	   ATM.getIntInput(scanner);
+       int makeDepositInput = ATM.getIntInput(scanner);
+       
+       switch(makeDepositInput) {
+       	case 1:
+     	   System.out.println("Please select the amount in pounds to be deposited:");
+     	   
+     	   amountToDeposit = ATM.getIntInput(scanner);
+     	   
+     	   boolean exit = false;
+     	   while(!exit) {
+	     	   System.out.println("1. Please confirm that you want to deposit " + amountToDeposit + "pounds.");
+	     	   System.out.println("8. Go back to previous menu.");
+	     	   System.out.println("9. Exit.");
+	
+	     	   confirmAmountToDeposit = ATM.getIntInput(scanner);
+	     	   switch(confirmAmountToDeposit) {
+	     	   		case 1:
+	     	   			this.poundsBalance += amountToDeposit;
+	     	   			System.out.println("Your new Pound Sterling account balance is £" + this.poundsBalance);
+
+	     	   			break;
+	     	   		case 8:
+	     	   			
+	     	   			break;
+	     	   		case 9:
+	     	   			
+	     	   			break;
+	     	   }
+     	   }
+     	   break;
+     	default:
+     		System.out.println("Invalid option, please try again.");
+	        System.out.println("");
+	        
+     		makeDeposit(scanner);
+     		break;
+
+    	   
+       }
    }
    
    
@@ -202,6 +284,14 @@ public class Account {
    
    public void changePin(Scanner scanner){
        
+   }
+   
+   public void exitTheProgram() {
+	   System.out.println("");
+       System.out.println("==========");
+       System.out.println("We hope to see you back soon.");
+       System.out.println("Good bye!.");
+       System.exit(0);
    }
    
    
