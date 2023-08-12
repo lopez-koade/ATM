@@ -38,7 +38,10 @@ public class ATM {
                         case 1:
                             Account user1Account = new Account("User1", 1, 7985, 432.36, 
                                 731.96, 657.56);
-                            boolean exitAccountNumber = false;
+                            
+//                            change below boolean to false once the app is done
+                            
+                            boolean exitAccountNumber = true;
                             while (!exitAccountNumber){
                                 System.out.println("==========");
                                 System.out.println("Please insert your pin (7985)");
