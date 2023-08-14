@@ -1,4 +1,5 @@
 package ATMPackage;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Account {
@@ -253,9 +254,10 @@ public class Account {
 	     	   			this.poundsBalance += amountToDeposit;
 	     	   			boolean exitConfirmDeposit = false;
 	     	   			while (!exitConfirmDeposit) {
+	     	   				
 	     	   				System.out.println("==========");
 	     	   				System.out.println("");
-		     	   			System.out.println("Your new Pound Sterling account balance is " + this.poundsBalance + " pounds.");
+		     	   			System.out.println("Your new Pound Sterling account balance is " + twoDigitDecimals(this.poundsBalance) + " pounds.");
 		     	   			System.out.println("");
 		     	   			System.out.println("8. Press to go back to the menu.");
 		     	   			System.out.println("9. Exit the program.");
@@ -264,6 +266,7 @@ public class Account {
 			            	 
 		     	   			exitConfirmDeposit = true;
 		     	   			exitPoundDeposit = true;
+		     	   			menu(scanner);
 		     	   			} else if(loopSterlingDeposit == 9) {
 			            	 exitTheProgram();
 		     	   			} else {
@@ -306,9 +309,10 @@ public class Account {
 	     	   			this.eurosBalance += amountToDeposit;
 	     	   			boolean exitConfirmDeposit = false;
 	     	   			while (!exitConfirmDeposit) {
+	     	   			
 	     	   				System.out.println("==========");
 	     	   				System.out.println("");
-		     	   			System.out.println("Your new euro account balance is " + this.eurosBalance + " euros.");
+		     	   			System.out.println("Your new euro account balance is " + twoDigitDecimals(this.eurosBalance) + " euros.");
 		     	   			System.out.println("");
 		     	   			System.out.println("8. Press to go back to the menu.");
 		     	   			System.out.println("9. Exit the program.");
@@ -317,6 +321,7 @@ public class Account {
 			            	 
 		     	   			exitConfirmDeposit = true;
 		     	   			exitEuroDeposit = true;
+		     	   			menu(scanner);
 		     	   			} else if(loopEuroDeposit == 9) {
 			            	 exitTheProgram();
 		     	   			} else {
@@ -362,7 +367,7 @@ public class Account {
        	     	   			while (!exitConfirmDeposit) {
        	     	   				System.out.println("==========");
        	     	   				System.out.println("");
-       		     	   			System.out.println("Your new dollar account balance is " + this.dollarsBalance + " dollars.");
+       		     	   			System.out.println("Your new dollar account balance is " + twoDigitDecimals(this.dollarsBalance) + " dollars.");
        		     	   			System.out.println("");
        		     	   			System.out.println("8. Press to go back to the menu.");
        		     	   			System.out.println("9. Exit the program.");
@@ -408,13 +413,244 @@ public class Account {
    
    
 ///////////
-   
+//   MAKE WITHDRAWAL
 ///////////
    
    
    private void makeWithdrawal(Scanner scanner){
+	   double amountToWithdraw = 0;
+	   int confirmAmountToWithdraw;
+	   System.out.println("==========");
+	   System.out.println("");
+	   System.out.println("Please select account:");
+	   System.out.println("1. Pound Sterling account.");
+       System.out.println("2. Euro account.");
+       System.out.println("3. Dollar account.");
+       System.out.println("");
+       System.out.println("8. Go back to menu.");
+ 	   System.out.println("9. Exit the program.");
+	   
+       int makeWithdrawInput = ATM.getIntInput(scanner);
        
-   }
+       switch(makeWithdrawInput) {
+       	case 1:
+       		boolean case1Loop = false;
+       		while(!case1Loop) {
+     	   System.out.println("==========");
+     	   System.out.println("");
+     	   System.out.println("Please select the amount in pounds to be withdrawn:");
+     	   
+     	   amountToWithdraw = ATM.getIntInput(scanner);
+     	   if(amountToWithdraw <= this.poundsBalance) {
+     		   case1Loop = true;
+     		   boolean exitPoundWithdraw = false;
+	     	   while(!exitPoundWithdraw) {
+	     		   System.out.println("");
+		     	   System.out.println("1. Press to confirm that you want to Withdraw " + amountToWithdraw + " pounds.");
+		    	   System.out.println("");
+		     	   System.out.println("8. Go back to menu.");
+		     	   System.out.println("9. Exit the program.");
+		
+		     	   confirmAmountToWithdraw = ATM.getIntInput(scanner);
+		     	   switch(confirmAmountToWithdraw) {
+		     	   		case 1:
+		     	   			this.poundsBalance -= amountToWithdraw;
+		     	   			boolean exitConfirmWithdraw = false;
+		     	   			while (!exitConfirmWithdraw) {
+		     	   				
+		     	   				System.out.println("==========");
+		     	   				System.out.println("");
+			     	   			System.out.println("Your new Pound Sterling account balance is " + twoDigitDecimals(this.poundsBalance) + " pounds.");
+			     	   			System.out.println("");
+			     	   			System.out.println("8. Press to go back to the menu.");
+			     	   			System.out.println("9. Exit the program.");
+			     	   			int loopSterlingWithdraw = ATM.getIntInput(scanner);
+			     	   			if(loopSterlingWithdraw == 8){
+				            	 
+			     	   			exitConfirmWithdraw = true;
+			     	   			exitPoundWithdraw = true;
+			     	   			menu(scanner);
+			     	   			} else if(loopSterlingWithdraw == 9) {
+				            	 exitTheProgram();
+			     	   			} else {
+				            	 System.out.println("");
+				            	 System.out.println("Invalid option, please try again.");
+			     	   			}
+		     	   			}
+		     	   			break;
+		     	   		case 8:
+		     	   			exitPoundWithdraw = true;
+		     	   			case1Loop = true;
+		     	   			menu(scanner);
+		     	   			break;
+		     	   		case 9:
+		     	   			exitTheProgram();
+		     	   			break;
+		     	   		default:
+		     	   			System.out.println("==========");
+		     	   			System.out.println("");
+		     	   			System.out.println("Invalid option, please try again.");
+		     	   }
+	     	   }
+	     	   break;
+     	   } else {
+     		  System.out.println("");
+     		  System.out.println("The selected amount is higher than your current balance.");
+     		  System.out.println("Your Pound Sterling account balance is " + twoDigitDecimals(this.poundsBalance) + ".");
+     		  System.out.println("");
+     	   }  
+     	   }
+       	case 2:
+       		boolean case2Loop = false;
+       		while(!case2Loop) {
+       		System.out.println("==========");
+       	 System.out.println("");
+       	 System.out.println("Please select the amount in euros to be withdrawn:");
+   	   
+       	 amountToWithdraw = ATM.getIntInput(scanner);
+       	 if(amountToWithdraw <= this.eurosBalance) {
+       		 case2Loop = true;
+       		 boolean exitEuroWithdraw = false;
+	       	 while(!exitEuroWithdraw) {
+	       		   System.out.println("");
+		     	   System.out.println("1. Press to confirm that you want to withdraw " + amountToWithdraw + " euros.");
+		    	   System.out.println("");
+		     	   System.out.println("8. Go back to menu.");
+		     	   System.out.println("9. Exit the program.");
+		
+		     	   confirmAmountToWithdraw = ATM.getIntInput(scanner);
+		     	   switch(confirmAmountToWithdraw) {
+		     	   		case 1:
+		     	   			this.eurosBalance -= amountToWithdraw;
+		     	   			boolean exitConfirmWithdraw = false;
+		     	   			while (!exitConfirmWithdraw) {
+		     	   				System.out.println("==========");
+		     	   				System.out.println("");
+			     	   			System.out.println("Your new euro account balance is " + twoDigitDecimals(this.eurosBalance) + " euros.");
+			     	   			System.out.println("");
+			     	   			System.out.println("8. Press to go back to the menu.");
+			     	   			System.out.println("9. Exit the program.");
+			     	   			int loopEuroWithdraw = ATM.getIntInput(scanner);
+			     	   			if(loopEuroWithdraw == 8){
+			     	   			exitConfirmWithdraw = true;
+			     	   			exitEuroWithdraw = true;
+			     	   			menu(scanner);
+			     	   			} else if(loopEuroWithdraw == 9) {
+				            	 exitTheProgram();
+			     	   			} else {
+				            	 System.out.println("");
+				            	 System.out.println("Invalid option, please try again.");
+			     	   			}
+		     	   			}
+		     	   			break;
+		     	   		case 8:
+		     	   			exitEuroWithdraw = true;
+		     	   			case2Loop = true;
+		     	   			menu(scanner);
+		     	   			break;
+		     	   		case 9:
+		     	   			exitTheProgram();
+		     	   			break;
+		     	   		default:
+		     	   			System.out.println("==========");
+		     	   			System.out.println("");
+		     	   			System.out.println("Invalid option, please try again.");
+		     	   		break;	
+		     	   	}
+	       	 	}
+	       	 		break;
+       	} else {
+       		System.out.println("");
+       		System.out.println("The selected amount is higher than your current balance.");
+   		  System.out.println("Your Pound Sterling account balance is " + twoDigitDecimals(this.eurosBalance) + ".");
+   		  System.out.println("");
+   	   }
+       }
+       		
+       case 3:
+    	   boolean case3Loop = false;
+      		while(!case3Loop) {
+       			 System.out.println("==========");
+       			 System.out.println("");
+              	 System.out.println("Please select the amount in dollars to be withdrawn:");
+          	   
+              	 amountToWithdraw = ATM.getIntInput(scanner);
+              	 if(amountToWithdraw <= this.eurosBalance) {
+              		 case3Loop = true;
+              		 boolean exitDollarWithdraw = false;
+	              	 while(!exitDollarWithdraw) {
+	                   System.out.println("");
+	       	     	   System.out.println("1. Press to confirm that you want to withdraw " + amountToWithdraw + " dollars.");
+	       	    	   System.out.println("");
+	       	     	   System.out.println("8. Go back to menu.");
+	       	     	   System.out.println("9. Exit the program.");
+	       	
+	       	     	   confirmAmountToWithdraw = ATM.getIntInput(scanner);
+	       	     	   switch(confirmAmountToWithdraw) {
+	       	     	   		case 1:
+	       	     	   			this.dollarsBalance -= amountToWithdraw;
+	       	     	   			boolean exitConfirmWithdraw = false;
+	       	     	   			while (!exitConfirmWithdraw) {
+	       	     	   				System.out.println("==========");
+	       	     	   				System.out.println("");
+	       		     	   			System.out.println("Your new dollar account balance is " + twoDigitDecimals(this.dollarsBalance) + " dollars.");
+	       		     	   			System.out.println("");
+	       		     	   			System.out.println("8. Press to go back to the menu.");
+	       		     	   			System.out.println("9. Exit the program.");
+	       		     	   			int loopDollarWithdraw = ATM.getIntInput(scanner);
+	       		     	   			if(loopDollarWithdraw == 8){
+	       			            	 
+	       		     	   			exitConfirmWithdraw = true;
+	       		     	   			exitDollarWithdraw = true;
+	       		     	   			menu(scanner);
+	       		     	   			} else if(loopDollarWithdraw == 9) {
+	       			            	 exitTheProgram();
+	       		     	   			} else {
+	       			            	 System.out.println("");
+	       			            	 System.out.println("Invalid option, please try again.");
+	       		     	   			}
+	       	     	   			}
+	       	     	   			break;
+	       	     	   		case 8:
+	       	     	   			exitDollarWithdraw = true;
+	       	     	   			break;
+	       	     	   		case 9:
+	       	     	   			exitTheProgram();
+	       	     	   			break;
+	       	     	   		default:
+	       	     	   			System.out.println("==========");
+	       	     	   			System.out.println("");
+	       	     	   			System.out.println("Invalid option, please try again.");
+	       	     	   			break;
+	       	     	   			
+	       	     	   	}
+	              	 	} 	
+              	 } else {
+              		System.out.println("");
+              		System.out.println("The selected amount is higher than your current balance.");
+                   		  System.out.println("Your Pound Sterling account balance is " + twoDigitDecimals(this.eurosBalance) + ".");
+                   		  System.out.println("");
+                   	   }
+      		}
+              	 	
+       case 8:
+    	   break;
+       case 9:
+       		exitTheProgram();
+       default:
+       		System.out.println("Invalid option, please try again.");
+       		System.out.println("");
+       		makeDeposit(scanner);
+       		break;
+
+       	}
+   	}
+   
+   
+   //////////////////////
+   ////EXCHANGE CURRENCY METHOD
+   /////////////////////
+   
    
    
    private void exchangeCurrency(Scanner scanner){
@@ -435,6 +671,12 @@ public class Account {
        System.out.println("We hope to see you back soon.");
        System.out.println("Good bye!.");
        System.exit(0);
+   }
+   
+   public String twoDigitDecimals(double number) {
+	   DecimalFormat decimalFormat = new DecimalFormat("0.00");
+	   String formattedNumber = decimalFormat.format(number);
+	   return formattedNumber;
    }
    
    
