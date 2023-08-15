@@ -136,6 +136,18 @@ public class ATM {
 		   }
 	   }
    }
+   
+   
+   public static double getDoubleInput(Scanner scanner){
+	   while(true){
+		   try {
+			   return scanner.nextDouble();
+		   } catch(InputMismatchException e){
+			   System.out.println("Please provide a valid number:");
+			   scanner.nextLine();
+		   }
+	   }
+   }
 
    
    public static String getStringInput(Scanner scanner) {

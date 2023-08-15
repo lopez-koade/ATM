@@ -10,6 +10,13 @@ public class Account {
     private double eurosBalance = 0.00;
     private double dollarsBalance = 0.00;
     boolean exitMenu;
+    // Currency exchanges according to xe.com on August 1st 2023
+    double gbpEur = 1.1620;
+    double gbpDol = 1.2746;
+    double eurGbp = 0.86062;
+    double eurDol = 1.0970;
+    double dolGbp = 0.78452;
+    double dolEur = 0.91158;
 
 
     
@@ -413,7 +420,7 @@ public class Account {
    
    
 ///////////
-//   MAKE WITHDRAWAL
+//   METHOD MAKE WITHDRAWAL
 ///////////
    
    
@@ -652,10 +659,194 @@ public class Account {
    /////////////////////
    
    
-   
    private void exchangeCurrency(Scanner scanner){
-       
+
+	   currencyToSellText();
+ 	   
+ 	   int exchangeCurrencyChoice = ATM.getIntInput(scanner);
+ 	   switch (exchangeCurrencyChoice) {
+	 	   case 1:
+	 		   boolean case1Exit = false;
+	 		   while(!case1Exit){
+	 			   currencyToBuyText("Pound Sterling", "Euro", "Dollar");
+		 	 	   
+		 	 	   int case1Choice = ATM.getIntInput(scanner);
+		 	 	   switch(case1Choice) {
+		 	 	   		case 1:
+		 	 	   			boolean case11 = false;
+		 	 	   			while(!case11) {
+			 	 	   			insertAmountText("euros");
+			 	 	   			
+			 	 	   			double amountToConvert = ATM.getDoubleInput(scanner);
+			 	 	   			if(amountToConvert == 8) {
+			 	 	   				menu(scanner);
+			 	 	   				case1Exit = true;
+			 	 	   				case11 = true;
+			 	 	   				
+			 	 	   			}else if(amountToConvert == 9) {
+			 	 	   				exitTheProgram();
+			 	 	   			} else if(amountToConvert < 10) {
+			 	 	   				System.out.println("");
+			 	 	   				System.out.println("The minimum amount to convert is 10 euros.");
+			 	 	   				
+			 	 	   			} else {
+			 	 	   				boolean catBoolean = false;
+			 	 	   				while(!catBoolean){
+				 	 	   				confirmAmountText(amountToConvert, "euros");
+				 	 	   				int isConfirmedAmountToConvert = ATM.getIntInput(scanner);
+				 	 	   				switch(isConfirmedAmountToConvert) {
+				 	 	   				case 1:
+				 	 	   					if (amountToConvert <= this.poundsBalance * gbpEur) {
+				 	 	   						this.poundsBalance -= amountToConvert / gbpEur;
+				 	 	   						this.eurosBalance += amountToConvert;
+				 	 	   						exchangedCurrencyBalance("Pound Sterling", this.poundsBalance, "pounds",
+				 	 	   												 "Euro", this.eurosBalance, "euros");
+				 	 	   						int afterExchangeChoice = ATM.getIntInput(scanner);
+				 	 	   						if(afterExchangeChoice == 9) {
+				 	 	   							exitTheProgram();
+				 	 	   						} else {
+				 	 	   							return;
+				 	 	   						}
+				 	 	   					} else {
+				 	 	   						boolean nofBoolean = false;
+				 	 	   						while(!nofBoolean) {
+				 	 	   							notEnoughFunds("Pound Sterling", this.poundsBalance, "pounds", gbpEur, "euros");
+				 	 	   							int notEnoughFundsChoice = ATM.getIntInput(scanner);
+				 	 	   							switch(notEnoughFundsChoice) {
+				 	 	   								case 7:
+				 	 	   									nofBoolean = true;
+				 	 	   									catBoolean = true;
+				 	 	   									break;
+				 	 	   								case 8:
+				 	 	   									return;
+				 	 	   								case 9:
+				 	 	   									exitTheProgram();
+				 	 	   								default:
+				 	 	   									selectValidOption();
+				 	 	   							}
+				 	 	   						}
+				 	 	   						
+				 	 	   						
+				 	 	   					}
+				 	 	   					break;
+				 	 	   				case 8:
+				 	 	   					return;
+				 	 	   				case 9:
+				 	 	   					exitTheProgram();
+				 	 	   				default:
+				 	 	   				selectValidOption();
+				 	 	   				}	
+			 	 	   				}
+			 	 	   			}
+		 	 	   			}
+		 	 	   			break;
+		 	 	   		case 2:
+		 	 	   			break;
+		 	 	   		case 8:
+		 	 	   			return;
+		 	 	   		case 9:
+		 	 	   			exitTheProgram();
+		 	 	   		default:
+		 	 	   			selectValidOption();
+		 	 	   			break;
+		 	 	   }
+		 	   }
+	 		   break;
+	 	   case 2:
+	 		   break;
+	 	   case 3:
+	 		   break;
+	 	   case 8:
+	 		   return;
+	 	   case 9:
+	 		  exitTheProgram();
+	 	   default:
+	 		  selectValidOption();
+	 		  exchangeCurrency(scanner);
+	 		  break;
+	 	   }
+ 		  
+ 		   
    }
+   
+   
+   private void currencyToSellText() {
+	   System.out.println("==========");
+	   System.out.println("");
+	   System.out.println("Please select the currency that you want to sell:");
+	   System.out.println("1. Pound Sterling.");
+       System.out.println("2. Euro.");
+       System.out.println("3. Dollar.");
+       System.out.println("");
+       System.out.println("8. Go back to menu.");
+ 	   System.out.println("9. Exit the program.");
+   }
+   
+   private void currencyToBuyText(String sellCurrency, String buyCurrency1, String buyCurrency2) {
+	   System.out.println("==========");
+	   System.out.println("You have chosen to sell " + sellCurrency + ".");
+	   System.out.println("");
+	   System.out.println("Please select the currency that you want to buy:");
+	   System.out.println("1. " + buyCurrency1 + ".");
+	   System.out.println("2. " + buyCurrency2 + ".");
+	   System.out.println("");
+	   System.out.println("8. Go back to menu.");
+	   System.out.println("9. Exit the program.");
+   }
+   
+   private void insertAmountText(String buyCurrency) {
+	   System.out.println("==========");
+	   System.out.println("You have chosen to buy " + buyCurrency + ".");
+	   System.out.println("");
+	   System.out.println("Please insert the amount of " + buyCurrency + " that you want to buy:");
+	   System.out.println("");
+	   System.out.println("8. Go back to menu.");
+	   System.out.println("9. Exit the program.");
+   }
+   
+   private void confirmAmountText(double amount, String buyCurrency) {
+	   System.out.println("");
+	   System.out.println("1. Press to confirm that you want to buy: " + amount + " " + buyCurrency + ".");
+	   System.out.println("");
+	   System.out.println("8. Go back to menu.");
+	   System.out.println("9. Exit the program.");
+   }
+   
+   private void exchangedCurrencyBalance(String sellCurrencyAccount, double balanceSellCurrency, String sellCurrency, 
+		   						   String buyCurrencyAccount, double balanceBuyCurrency, String buyCurrency) {
+	   System.out.println("==========");
+	   System.out.println("The transaction has been made succesfully.");
+	   System.out.println("");
+	   System.out.println("Your new " + sellCurrencyAccount + " account balance is " + twoDigitDecimals(balanceSellCurrency) + " " + sellCurrency + ".");
+	   System.out.println("Your new " + buyCurrencyAccount + " account balance is " + twoDigitDecimals(balanceBuyCurrency) + " " + buyCurrency + ".");
+	   System.out.println("");
+	   System.out.println("8. Go back to menu.");
+	   System.out.println("9. Exit the program.");
+   }
+   
+   private void notEnoughFunds(String sellCurrencyAccount, double balanceSellCurrency, String sellCurrency, double exchange, String buyCurrency) {
+	   System.out.println("==========");
+	   System.out.println("");
+	   System.out.println("You don't have enough enough funds to make this transaction.");
+	   System.out.println("");
+	   System.out.println("Your " + sellCurrencyAccount + " account balance is " + twoDigitDecimals(balanceSellCurrency) + " " + sellCurrency + ".");
+	   System.out.println("Considering your current balance, you can buy up to " + twoDigitDecimals(balanceSellCurrency * exchange) + " " + buyCurrency + ".");
+	   System.out.println("");
+	   System.out.println("7. Insert another quantity.");
+	   System.out.println("8. Go back to menu.");
+	   System.out.println("9. Exit the program.");
+   }
+   
+   private void selectValidOption () {
+	   System.out.println("");
+	   System.out.println("Please select a valid option:");
+		System.out.println("");
+   }
+   
+   //////////////////////
+   //////LAST MOVEMENTS//
+   //////////////////////
+   
    
    private void lastMovements(Scanner scanner){
        
