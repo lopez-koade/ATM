@@ -32,7 +32,7 @@ Let the user change the PIN.
 - Outline the sections of the ATM and create a tree with the options that would come up down the line. 
 - Set up Eclipse IDE project and link it to GitHub.
 - Create program entry letting user choose between new or existing account.
-- Create Account class and display menu, then create a method for every menu option with accesory methods.
+- Create Account class and display menu, then create a mathod for every menu option with accesory methods.
 - Debug along the way.
 
 
@@ -42,7 +42,14 @@ Let the user change the PIN.
 - Eclipse IDE
 
 ### What I learned
- 
+How to use the Scanner class for user input.<br>
+Exception handle, InputMismatchError in particular.<br>
+The use of while loops, this app has plenty of them as it needs to keep asking users for the right option if the user selects the wrong option. <br>
+OOP concepts, using classes, objects, inheritance, and encapsulation for an understandable and maintainable code.<br>
+The importance of indentation and meaningful naming.<br>
+How avoiding repeated code is key for a clean code, which I put into practice from the method "currencyExchange". <br>
+In general, I've developed my problem solving skills figuring out solutions for managing user accounts, validating transactions, and handling tricky situations, like currency exchange operations. How to save the transaction history and then display it through the "last movements statement" was also a challenge.<br>
+Considering that this is been my first relatively complex Java program as a beginner Java developer, I'm happy about the result. Specially the last part of the program. However, I consider I should have created a class for each menu option as the account class ended up being too long. That would have made the project easier to understand and cleaner. Some methods should have also been split in two to keep them simplerer. 
 
 
 ## Author

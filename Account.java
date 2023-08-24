@@ -1280,17 +1280,18 @@ public class Account {
    
    public void printStatement() {
 		for (int i = 0; i < transactions2DArray.size(); i++) {
-	        if(!transactions2DArray.get(i).get(0).equals("Currency exchange")){
-				System.out.println("");
-				System.out.println(transactions2DArray.get(i).get(0) + " of " + transactions2DArray.get(i).get(3) + " " + transactions2DArray.get(i).get(2) + ".");
-				System.out.println("Balance after transaction: " + twoDigitDecimals((double) transactions2DArray.get(i).get(1)) + " " + transactions2DArray.get(i).get(2) + ".");
-				System.out.println("");
-	        }
-	        else {
-		    	System.out.println("");
+	        if(transactions2DArray.get(i).get(0).equals("Currency exchange")){ //prints a currency exchange transaction
+	        	System.out.println("");
 				System.out.println(transactions2DArray.get(i).get(0) + " "  + transactions2DArray.get(i).get(4)+ "/" + transactions2DArray.get(i).get(5) + ".");
 				System.out.println("Sold " + twoDigitDecimals((double) transactions2DArray.get(i).get(6)) + " " + transactions2DArray.get(i).get(3) + " --- balance after transaction: " + twoDigitDecimals((double) transactions2DArray.get(i).get(1)) + ".");
 				System.out.println("Bought " + transactions2DArray.get(i).get(7) + " " + transactions2DArray.get(i).get(2) + " --- balance after transaction: " + twoDigitDecimals((double) transactions2DArray.get(i).get(8)) + ".");
+				System.out.println("");
+	        	
+	        }
+	        else { //prints a regular transaction (deposit or withdrawal)
+	        	System.out.println("");
+				System.out.println(transactions2DArray.get(i).get(0) + " of " + transactions2DArray.get(i).get(3) + " " + transactions2DArray.get(i).get(2) + ".");
+				System.out.println("Balance after transaction: " + twoDigitDecimals((double) transactions2DArray.get(i).get(1)) + " " + transactions2DArray.get(i).get(2) + ".");
 				System.out.println("");
 	        }
 		}
@@ -1320,10 +1321,75 @@ public class Account {
 		transactions2DArray.add(row);
 	}
 	
-	
+	///////
+   //CHANGE PIN METHOD
+   ///////
+   
    private void changePin(Scanner scanner){
-       
+	   int numberAttempts = 3;
+	   int newPin = -1;
+	   boolean exit = false;
+	   while(!exit) {
+		   if (numberAttempts >= 1) {
+			   System.out.println("==========");
+			   System.out.println("");
+			   System.out.println("Please confirm your current pin:");
+			   System.out.println("");
+			   System.out.println("8. Go back to menu.");
+			   System.out.println("9. Exit the program.");
+			   
+			   int insertedPin = ATM.getIntInput(scanner);
+			   if(insertedPin == 8) {
+				   return;   	
+			   } else if(insertedPin == 9) {
+				   exitTheProgram();
+			   } else if(insertedPin == this.pin) {
+				   boolean validPinEntered = false;
+                   while (!validPinEntered){
+					   System.out.println("");
+					   System.out.println("Please insert a new 4-digit PIN:");
+					   System.out.println("");
+					   System.out.println("8. Go back to menu.");
+					   System.out.println("9. Exit the program.");
+					   newPin = ATM.getIntInput(scanner);
+                       
+                       if(ATM.isPin4Digits(newPin)){
+                          validPinEntered = true;
+                       } else{
+                              
+                          System.out.println("Invalid PIN format. PIN must be a 4-digit number");
+                          }
+                   }
+                   boolean isPinConfirmed = false;
+                   while (!isPinConfirmed){
+                       System.out.println("==========");
+                       System.out.println("Please confirm your new PIN:");
+                       int confirmNewPin = ATM.getIntInput(scanner);
+                       if(confirmNewPin == newPin){
+                           this.pin = confirmNewPin;
+                           System.out.println("==========");
+                           System.out.println("Your PIN has been changed succesfully.");
+                           System.out.println();
+                           isPinConfirmed = true;
+                           exit = true;
+                           menu(scanner);
+                       }
+                   }
+			   } else {
+				   numberAttempts -=1;
+				   System.out.println("");
+				   System.out.println("Wrong number, you have " + numberAttempts + " more attempts.");
+				   System.out.println("");
+			   }
+		   } else {
+			   exitTheProgram();
+		   }
+	   }
    }
+   
+   
+   // OTHER METHODS
+   
    
    public void exitTheProgram() {
 	   System.out.println("");
